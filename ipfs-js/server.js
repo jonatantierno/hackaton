@@ -2,7 +2,7 @@ var ipfsClient = require('ipfs-http-client')
 var ipfs = ipfsClient('localhost', '5001', { protocol: 'http' })
 
 
-function addIPFS(data) {
+var addIPFS = function(data) {
     ipfs.add(Buffer.from(data), (err, files) => {
         if (err) return console.error(err)
         // 'hash', known as CID, is a string uniquely addressing the data
@@ -13,8 +13,8 @@ function addIPFS(data) {
     })
 }
 
-function getIPFS(address) {
-    ipfs.cat('QmPChd2hVbrJ6bfo3WBcTW4iZnpHm8TEzWkLHmLpXhF68A', (err, data) => {
+var getIPFS = function(address) {
+    ipfs.cat(address, (err, data) => {
         if (err) return console.error(err)
         
         // convert Buffer back to string
@@ -29,12 +29,20 @@ function getIPFS(address) {
     path = require('path'),    
     filePath = path.join(__dirname, 'start.html');
 
-function readFile(){
+var readFile = function(){
+    filePath = path.join(__dirname, 'start.html');
+    console.log(filePath)
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
             console.log('received data: ' + data);
+            return data
         } else {
             console.log(err);
         }
     });
 }
+
+data = "<h1>Nsdfoasdfopk</h1>"
+console.log(data)
+addr = addIPFS(data)
+console.log(getIPFS(addr))

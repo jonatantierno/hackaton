@@ -42,7 +42,10 @@ class Search extends Component {
 	}
 
 	async search(searchInput) {
-		console.log(searchInput)
+
+		//1 ethereum obtiene ipfsDireccion
+		//2 ipfs obtiene html
+
 		this.setState({
 			pepe:true,
 			search: "html"

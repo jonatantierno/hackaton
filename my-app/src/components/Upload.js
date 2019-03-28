@@ -37,8 +37,20 @@ class Upload extends Component {
 
 
 	async uploadSite(htmlInput) {
-		let file = event.target.files[0];
-        console.log(file);
+		// let file = event.target.files[0];
+		// console.log(file);
+		const reader = new FileReader();
+
+		console.log(htmlInput)
+		var e = reader.onloadend;
+		console.log(e); 
+		var e = reader.onprogress;
+		console.log(e);
+		var e = reader.readAsText(htmlInput); 
+		console.log(e);
+	
+		
+
 		console.log(htmlInput)
         // var x = await ipfs.uploadSite("_producto", "")
     }
@@ -59,7 +71,7 @@ class Upload extends Component {
 					<p className="subtittle"> Upload</p>
 					<input className="input" id="input2" name="myFile" ref="htmlInput" type="file" placeholder="File to upload"></input>
 
-					<Button className="button" color="primary" onClick={e => this.uploadSite(this.refs.htmlInput)}> Upload</Button>
+					<Button className="button" color="primary" onClick={e => this.uploadSite(this.refs.htmlInput.files[0])}> Upload</Button>
 				</header>
 
 				<div className="App-body">

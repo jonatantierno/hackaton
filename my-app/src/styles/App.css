@@ -186,7 +186,6 @@ font-size:120%;
   margin-top:30px;
   margin-bottom:30px;
 }
-
 .img-state{
   align-self:auto;
   width:120%;
@@ -215,6 +214,32 @@ font-size:120%;
   color:whitesmoke;
   background-color:#282c34;
 }
+
+
+.inputAmount{
+  width:10%;
+  height:35px;
+  font-size:120%;
+  color:white;
+  margin-right:30px;
+  background-color: #282c34;
+  border-color: #282c34;
+  text-align:center;
+}
+
+.div-valorate{
+  text-align:center;
+
+}
+
+.image-valorate{
+  width:10%;
+}
+.image-valorate:hover{
+  width:11%;
+}
+
+
 
 @keyframes App-logo-spin {
   0% {transform: rotate(-50deg); left:30%}

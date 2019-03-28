@@ -137,7 +137,7 @@ export var upVote = async function (appName, vote) {
  * @description
  * @returns
  */
-export var upVote = async function (appName, vote) {
+export var downVote = async function (appName, vote) {
     let thePromise = new Promise((resolve, reject) => {
         contract.methods.downVote(appName, vote).send({ from: web3.eth.defaultAccount, gas:300000 })  
             .then(res => {

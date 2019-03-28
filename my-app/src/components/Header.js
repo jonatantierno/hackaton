@@ -36,10 +36,10 @@ export default class Solicitud extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink className="nav-item-text" href="/search/" id="proveedor-color">Search</NavLink>
+                            <NavLink className="nav-item-text" href="/search/" id="cliente-color">Search</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink className="nav-item-text" href="/upload/" id="cliente-color">Upload</NavLink>
+                            <NavLink className="nav-item-text" href="/upload/" id="proveedor-color">Upload</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle className="nav-item-text" nav caret>
@@ -67,10 +67,6 @@ export default class Solicitud extends Component {
                     </Nav>
                 </Collapse>
             </Navbar>
-
-
-
                 )
             }
-        
 }

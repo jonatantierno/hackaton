@@ -29,16 +29,21 @@ contract Arpanet {
     /* ---  Metodo Constructor ---  */  
     constructor() public{}
     
-    function registerIdentity() public returns (bool){
-        identities[msg.sender].lastUpdate = block.number;
-        identities[msg.sender].balance = 0;
-        return true;
-    }
-    
     function stringToHash(string memory key) internal pure returns (bytes32){
         bytes memory tempEmptyStringTest = bytes(key);
         return keccak256(tempEmptyStringTest);
         
+    }
+    
+    function minting(address user) internal {
+        identities[user].balance += ((block.number - identities[user].lastUpdate) / BLOCK_MINTING);
+        identities[user].lastUpdate = block.number;
+    }
+    
+    function registerIdentity() public returns (bool){
+        identities[msg.sender].lastUpdate = block.number;
+        identities[msg.sender].balance = 0;
+        return true;
     }
     
     function uploadFile(string memory appName, string memory dirIPFS) public returns (bool) {
@@ -49,12 +54,6 @@ contract Arpanet {
         return true;
     }
     
-    function minting(address user) internal {
-        identities[user].balance += ((block.number - identities[user].lastUpdate) / BLOCK_MINTING);
-        identities[user].lastUpdate = block.number;
-    }
-    
- 
     function upVote(string memory appName, uint256 vote) public returns (bool) {
         bytes32 index = stringToHash(appName);
         minting(msg.sender);
@@ -73,9 +72,12 @@ contract Arpanet {
         return true;
     }
     
-    
     function getApp (string memory appName) public view returns (address, string memory, uint256, uint256){
         bytes32 index = stringToHash(appName);
+        
+        if((double appDNS[index].downVotes*100/(appDNS[index].downVotes * 100 + appDNS[index].upVotes * 100))){
+            
+        }
         return (appDNS[index].owner, appDNS[index].dirIPFS, appDNS[index].upVotes, appDNS[index].downVotes);
     }
     

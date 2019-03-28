@@ -56,7 +56,9 @@ class Search extends Component {
 						<Button className="button" color="primary" onClick={e => this.getFile(this.refs.search.value)}> Search</Button>
 					</div>
 
-					<div></div>
+					<div>
+						
+					</div>
 
 
 

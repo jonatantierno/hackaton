@@ -6,6 +6,7 @@ import ethereumsvg from '../images/ethereum.svg';
 import upload from '../images/upload.svg';
 /* Util */
 import * as eth from '../ethereum/ethereumController.js';
+import * as ipfs from '../ipfs/server'
 import config from '../config';
 /* React Components */
 import { Button } from 'reactstrap';
@@ -35,8 +36,23 @@ class Upload extends Component {
 	}
 
 
-	async uploadSite() {
-        var x = await eth.uploadSite("_producto", "")
+	async uploadSite(htmlInput) {
+		// let file = event.target.files[0];
+		// console.log(file);
+		const reader = new FileReader();
+
+		console.log(htmlInput)
+		var e = reader.onloadend;
+		console.log(e); 
+		var e = reader.onprogress;
+		console.log(e);
+		var e = reader.readAsText(htmlInput); 
+		console.log(e);
+	
+		
+
+		console.log(htmlInput)
+        // var x = await ipfs.uploadSite("_producto", "")
     }
 
 	render() {
@@ -52,10 +68,10 @@ class Upload extends Component {
 					<hr className="my-2" />
 					<img className="image-reputation" src={upload} alt="Upload" />
 					
-					FILE
-					<input></input> 
+					<p className="subtittle"> Upload</p>
+					<input className="input" id="input2" name="myFile" ref="htmlInput" type="file" placeholder="File to upload"></input>
 
-					<Button className="button" color="primary" onClick={e => this.uploadSite()}> Upload</Button>
+					<Button className="button" color="primary" onClick={e => this.uploadSite(this.refs.htmlInput.files[0])}> Upload</Button>
 				</header>
 
 				<div className="App-body">

@@ -2,10 +2,10 @@
     
 pragma solidity ^0.5.2;
     
-import "github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol";
+//import "github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract Arpanet {
-    using SafeMath for uint256;
+    //using SafeMath for uint256;
     
     // App directory
     struct app {
@@ -14,7 +14,7 @@ contract Arpanet {
         uint256 upVotes;
         uint256 downVotes;
     }
-    mapping(bytes32 => app) appDNS;
+    mapping(string => app) appDNS;
     
     // Karmas
     struct karmaStruct {
@@ -23,21 +23,25 @@ contract Arpanet {
     }
     mapping(address => karmaStruct) public identities;
     
-    uint256 constant BLOCK_MINTING = 50;
+    uint256 constant BLOCK_MINTING = 1;
 
     
     /* ---  Metodo Constructor ---  */  
     constructor() public{}
     
-    function stringToHash(string memory key) internal pure returns (bytes32){
-        bytes memory tempEmptyStringTest = bytes(key);
-        return keccak256(tempEmptyStringTest);
-        
-    }
-    
     function minting(address user) internal {
         identities[user].balance += ((block.number - identities[user].lastUpdate) / BLOCK_MINTING);
         identities[user].lastUpdate = block.number;
+    }
+    
+    function headshot(string memory appName) internal {
+        uint256 up = appDNS[appName].upVotes;
+        uint256 down = appDNS[appName].downVotes;
+        address owner = appDNS[appName].owner;
+        
+        if((up+down > 10) && down*100/(up+down) > 85){
+            identities[owner].balance = 0;
+        }
     }
     
     function registerIdentity() public returns (bool){
@@ -47,38 +51,31 @@ contract Arpanet {
     }
     
     function uploadFile(string memory appName, string memory dirIPFS) public returns (bool) {
-        bytes32 index = stringToHash(appName);
-        require(appDNS[index].owner != address(0));
-        appDNS[index].owner = msg.sender;
-        appDNS[index].dirIPFS = dirIPFS;
+        appDNS[appName].owner = msg.sender;
+        appDNS[appName].dirIPFS = dirIPFS;
         return true;
     }
     
     function upVote(string memory appName, uint256 vote) public returns (bool) {
-        bytes32 index = stringToHash(appName);
         minting(msg.sender);
-        require(identities[msg.sender].balance >= vote); 
+        if (identities[msg.sender].balance < vote){return false;}
         identities[msg.sender].balance -= vote;
-        appDNS[index].upVotes += vote;
+        appDNS[appName].upVotes += vote;
+        //headshot(index);
         return true;
     }
     
     function downVote(string memory appName, uint256 vote) public returns (bool) {
-        bytes32 index = stringToHash(appName);
         minting(msg.sender);
-        require(identities[msg.sender].balance >= vote);
+        if (identities[msg.sender].balance < vote){return false;}
         identities[msg.sender].balance -= vote;
-        appDNS[index].downVotes += vote;
+        appDNS[appName].downVotes += vote;
+        //headshot(index);
         return true;
     }
     
     function getApp (string memory appName) public view returns (address, string memory, uint256, uint256){
-        bytes32 index = stringToHash(appName);
-        
-        if((double appDNS[index].downVotes*100/(appDNS[index].downVotes * 100 + appDNS[index].upVotes * 100))){
-            
-        }
-        return (appDNS[index].owner, appDNS[index].dirIPFS, appDNS[index].upVotes, appDNS[index].downVotes);
+        return (appDNS[appName].owner, appDNS[appName].dirIPFS, appDNS[appName].upVotes, appDNS[appName].downVotes);
     }
     
 

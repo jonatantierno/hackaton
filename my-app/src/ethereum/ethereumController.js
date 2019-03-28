@@ -23,7 +23,7 @@ if (typeof web3 != 'undefined') {
     web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"))
     console.log("Local provider")
 }
-export var web3 =  web3
+export var web3 = web3
 console.log(web3)
 
 /* CONTRACT IMPLEMENTATION */
@@ -48,8 +48,8 @@ export var getEvent = async function () {
 export var getMetamaskEvent = async function () {
     var thePromise = new Promise((resolve, reject) => {
         window.ethereum.on('accountsChanged', function (accounts) {
-                console.log("EVENTO METAMASK ------- Cambio de cuenta"+accounts[0])
-                resolve(accounts[0])
+            console.log("EVENTO METAMASK ------- Cambio de cuenta" + accounts[0])
+            resolve(accounts[0])
         })
     })
     return thePromise
@@ -71,161 +71,15 @@ export var getDefaultAccount = async function () {
 
 
 
-/**
- * @function solicitar
- * @param 
- * @description 
- * @returns {Promise}
- */
-export var solicitar = function (product, precio) {
-    var thePromise = new Promise((resolve, reject) => {
-        if (contract === undefined)
-            resolve("You must instantiate the contract.")
-        else {
-            contract.methods.solicitar(product, precio).send({ from: web3.eth.defaultAccount })
-                .then(res => {
-                    // will be fired once the receipt its mined
-                    //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
-                    resolve(res)
-                })
-                .catch(error => {
-                    //logger.error(err.message)
-                    reject(error.message)
-                })
-        }
-    })
-    return thePromise
-}
-
-
-
 
 /**
- * @function validar
- * @param numberID {Number}
- * @param state {Boolean}
- * @description 
- * @returns {Promise}
- */
-export var validar = function (numberID, precio) {
-    let thePromise = new Promise((resolve, reject) => {
-        contract.methods.validar(numberID).send({ from: web3.eth.defaultAccount, value: precio })
-            .then(res => {
-                // will be fired once the receipt its mined
-                //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
-                resolve(res)
-            })
-            .catch(err => {
-                //logger.error(err.message)
-                reject(err.message)
-            })
-    })
-    return thePromise
-}
-
-/**
- * @function cancelar
- * @param numberID {Number}
- * @param delete {Boolean}
- * @description 
- * @returns {Promise}
- */
-export var cancelar = function (numberID, bool) {
-    let thePromise = new Promise((resolve, reject) => {
-        contract.methods.cancelar(numberID, bool).send({ from: web3.eth.defaultAccount })
-            .then(res => {
-                // will be fired once the receipt its mined
-                //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
-                resolve(res)
-            })
-            .catch(err => {
-                //logger.error(err.message)
-                reject(err.message)
-            })
-    })
-    return thePromise
-}
-
-
-/**
- * @function getSolicitudByID 
- * @param numberID {Number} 
- * @description 
- * @returns {Promise}
- */
-export var getSolicitudByID = async function (numberID) {
-    var result = await contract.methods.getSolicitudByID(numberID).call()
-    return { result }
-}
-
-/**
- * @function getAllSolicitudes
+ * @function registerIdentity
  * @description
  * @returns
  */
-export var getAllSolicitudes = async function () {
-    var length = await contract.methods.getLength().call()
-    var result = []
-    for (var i = length - 1; i >= 0; i--) {
-        var solicitud = await contract.methods.getSolicitudByID(i).call()
-        if (solicitud.producto !== '') {
-            result.push(solicitud)
-        }
-    }
-    return result
-}
-
-/* -------------- CLIENTE -------------- */
-/**
- * @function getHistoricForAddress
- * @description
- * @returns
- */
-export var getHistoricForAddress = async function (address) {
-    var length = await contract.methods.getLength().call()
-    var result = []
-    for (var i = length - 1; i >= 0; i--) {
-        var solicitud = await contract.methods.getSolicitudByID(i).call()
-        if (solicitud.owner.toUpperCase() == address.toUpperCase() && solicitud.status == 2) {
-            result.push(solicitud)
-        }
-    }
-    return result
-}
-
-
-
-// ********************************************************************* //
-
-
-
-/**
- * @function getFile
- * @description
- * @returns
- */
-export var getFile = async function (address) {
-    var length = await contract.methods.getLength().call()
-    var result = []
-    for (var i = length - 1; i >= 0; i--) {
-        var solicitud = await contract.methods.getSolicitudByID(i).call()
-        if (solicitud.proveedor.toUpperCase() == address.toUpperCase()) {
-            result.push(solicitud)
-        }
-    }
-    return result
-}
-
-
-/**
- * @function uploadFile
- * @param numberID {Number} 
- * @description 
- * @returns {Promise}
- */
-export var uploadSite = function (numberID) {
+export var registerIdentity = async function(){
     let thePromise = new Promise((resolve, reject) => {
-        contract.methods.uploadSite("fileName","direccionIPFS").send({ from: web3.eth.defaultAccount, gas:300000 })  
+        contract.methods.registerIdentity().send({ from: web3.eth.defaultAccount, gas:300000 })  
             .then(res => {
                 resolve(res)
                 console.log(res)
@@ -237,3 +91,74 @@ export var uploadSite = function (numberID) {
     })
     return thePromise
 }
+
+/**
+ * @function uploadFile
+ * @description
+ * @returns
+ */
+export var uploadFile = async function (appName, dirIPFS) {
+    let thePromise = new Promise((resolve, reject) => {
+        contract.methods.uploadFile(appName,dirIPFS).send({ from: web3.eth.defaultAccount, gas:300000 })  
+            .then(res => {
+                resolve(res)
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err.message)
+                reject(err.message)
+            })
+    })
+    return thePromise
+}
+
+/**
+ * @function upVote
+ * @description
+ * @returns
+ */
+export var upVote = async function (appName, vote) {
+    let thePromise = new Promise((resolve, reject) => {
+        contract.methods.upVote(appName, vote).send({ from: web3.eth.defaultAccount, gas:300000 })  
+            .then(res => {
+                resolve(res)
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err.message)
+                reject(err.message)
+            })
+    })
+    return thePromise
+}
+
+/**
+ * @function downVote
+ * @description
+ * @returns
+ */
+export var upVote = async function (appName, vote) {
+    let thePromise = new Promise((resolve, reject) => {
+        contract.methods.downVote(appName, vote).send({ from: web3.eth.defaultAccount, gas:300000 })  
+            .then(res => {
+                resolve(res)
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err.message)
+                reject(err.message)
+            })
+    })
+    return thePromise
+}
+
+/**
+ * @function getApp
+ * @description
+ * @returns
+ */
+export var getApp = async function (appName) {
+    var solicitud = await contract.methods.getApp(appName).call()
+    return solicitud
+}
+

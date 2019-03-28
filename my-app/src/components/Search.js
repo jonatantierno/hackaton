@@ -53,14 +53,15 @@ class Search extends Component {
 		// var x = await eth.uploadSite("_producto", "")
 	}
 
-	async valorateYes() {
-		console.log("sssssssss")
-	}
+	async valorateYes(doc, klouts) {
+        console.log(doc + "voted with +" + klouts)
+        eth.upVote(doc, klouts)
+    }
 
-	async valorateNo() {
-		console.log("nnnnnnnnn")
-	}
-
+    async valorateNo(doc, klouts) {
+        console.log(doc + "voted with -" + klouts)
+        eth.downVote(doc, klouts)
+    }
 
 
 
@@ -91,9 +92,10 @@ class Search extends Component {
 						</div>
 							<div className="div-valorate">
 								<input className="inputAmount" id="inputAmount" ref="amount" type="number" placeholder="10"></input>
-								<img className="image-valorate" src={repYES} alt="Yes" onClick={e => this.valorateYes()} />
-								&nbsp;&nbsp;&nbsp;
-								<img className="image-valorate" src={repNO} alt="No" onClick={e => this.valorateNo()}/>
+								<img className=image-valorate src={repYES} alt=Yes onClick={e => this.valorateYes(this.refs.search.value, this.refs.amount.value)} />
+                                &nbsp;&nbsp;&nbsp;
+                                <img className=image-valorate src={repNO} alt=No onClick={e => this.valorateNo(this.refs.search.value, this.refs.amount.value)}/>
+                            </div>
 							</div>
 
 						</div>

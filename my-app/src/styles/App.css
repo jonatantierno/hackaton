@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil|Copse');
+
+.App-logo {
+  animation: App-logo-spin infinite 3s linear;
+  height: 60vmin;
+  position:absolute;
+  top:50%;
+  left:25%;
+}
+.nav-item-text{
+font-size:120%;
+}
+.navbar{
+  padding:0px;
+}
+.App-header {
+  background-color: #464b2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
+  color: white;
+  line-height: 50%;
+}
+.App-body{
+  text-align:center;
+  background-color:#dedede;
+}
+.App-link {
+  color: #61dafb;
+}
+.tittle{
+  font-family: 'Allerta Stencil';
+  font-size:400%;
+}
+.tittle-header{
+  font-family: 'Allerta Stencil';
+  font-size:200%;
+}
+.subtittle{
+  text-align:center;
+  font-family:'Copse';
+  margin-right:10%;
+  margin-left:10%;
+  line-height:100%;
+}
+.lista{
+  margin:auto;
+  text-align:left;
+}
+.lista li{
+  margin:auto;
+}
+
+.home-buttons-div{
+  width:95%;
+  height:calc(10vw + 0.3vh + 2vmin);
+  margin-right: 10px;
+  text-align:center;
+  margin-bottom:50px;
+
+}
+.home-buttons-div .button{
+  width:30%;
+  height:100%;
+  margin:auto;
+  font-size:calc(2vw + 0.3vh + 2vmin);
+}
+#cliente{
+  background-color:rgba(40, 155, 40, 0.493);
+}
+#cliente-color{
+  color:rgba(40, 155, 40, 0.493);
+  font-size:200%;
+  font-family:'Allerta Stencil';
+}
+
+#proveedor{
+  background-color:rgba(43, 43, 255, 0.432);
+}
+#proveedor-color{
+  color:rgba(43, 43, 255, 0.432);
+  font-size:200%;
+  font-family:'Allerta Stencil';
+}
+
+.input{
+  width:calc(50vw + 0.3vh );
+  font-size:120%;
+  text-align:center; 
+}
+::-webkit-input-placeholder{
+  font-style: italic;
+  font-size:80%;
+}
+
+
+#input2 {
+  width:calc(65vw + 0.3vh );
+
+}
+#input3{
+  width:calc(50vw + 0.3vh );
+
+}
+.div-right{
+  text-align:right;
+}
+
+.div-solicitudes{
+  padding:2%;
+  margin-right:10%;
+  margin-left:10%;
+  margin-bottom:15px;
+  line-height: 100%;
+  display:flex;
+  flex-direction:row;
+  text-align:center;
+  align-items:center;
+  justify-content:center;
+  border-style:outset;
+  border-color:rgba(230, 230, 230, 0.555);
+  border-radius:4%;
+  border-width:5px;
+  background-color:#ffffff;
+}
+.div-solicitudes-buttons{
+  justify-content: initial;
+  position:relative;
+  top:-100px;
+}
+
+.div-solicitud{
+  color:#2a3a4b;
+  width:70%;
+  text-align:left;  
+  padding-left:10px;
+}
+.div-solicitud i{
+  color:#2a3a4b;
+}
+.div-solicitud .h4{
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
+  font-weight:800;
+}
+.div-solicitud .lead{
+  font-size: calc(0.2vw + 0.2vh + 2.5vmin);
+  font-weight:100;
+}
+
+.button { 
+  font-size: calc(3px + 2vmin);
+  font-weight:900;
+  size:calc(20vw + 0.3vh );
+  margin-bottom:10px;
+}
+.button-cubrir{
+  width:calc(10vw + 1vh);
+  font-size:calc(1.2vw + 0.5vh);
+  padding-top:10px;
+  padding-bottom:10px;
+  font-weight:900;
+}
+.btn-primary{
+  background-color: #3879c9;
+  border-color: rgba(255, 255, 255, 0);
+}
+.btn-success {
+  background-color: #28a7469c;
+  color:black;
+}
+.btn-warning {
+  background-color: #ffc10797;
+
+}
+.btn-danger{
+  background-color: #dc354684;
+  color:black;
+}
+
+.image-reputation{
+  width:50%;
+  margin-right:10%;
+  margin-left:10%;
+  margin-top:30px;
+  margin-bottom:30px;
+}
+
+.img-state{
+  align-self:auto;
+  width:120%;
+}
+.my-2{
+  height:5px;
+  width:25%;
+  border-color:rgba(255, 255, 255, 0.836);
+}
+.profile-data{
+  text-align: left;
+  padding:10%;
+}
+.profile-data .h4{
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
+  line-height: 70%;
+}
+
+.link{
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
+  font-size:130%;
+}
+
+.footer{
+  text-align: center;
+  color:whitesmoke;
+  background-color:#282c34;
+}
+
+@keyframes App-logo-spin {
+  0% {transform: rotate(-50deg); left:30%}
+  50% {left:50%}
+  100% {transform: rotate(50deg); left:65%}
+}

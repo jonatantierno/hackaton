@@ -3,24 +3,28 @@ var ipfs = ipfsClient('localhost', '5001', { protocol: 'http' })
 
 
 var addIPFS = function(data) {
-    ipfs.add(Buffer.from(data), (err, files) => {
-        if (err) return console.error(err)
-        // 'hash', known as CID, is a string uniquely addressing the data
-        // and can be used to get it again. 'files' is an array because
-        // 'add' supports multiple additions, but we only added one entry
-        console.log(files[0].hash)
-        return files[0].hash
+    return new Promise((resolve, reject) => {
+        ipfs.add(Buffer.from(data), (err, files) => {
+            if (err) reject(err)
+            // 'hash', known as CID, is a string uniquely addressing the data
+            // and can be used to get it again. 'files' is an array because
+            // 'add' supports multiple additions, but we only added one entry
+            console.log(files[0].hash)
+            resolve(files[0].hash)
+        })
     })
 }
 
 var getIPFS = function(address) {
-    ipfs.cat(address, (err, data) => {
-        if (err) return console.error(err)
-        
-        // convert Buffer back to string
-        console.log(data.toString())
-        return data.toString()
-        })
+    return new Promise((resolve, reject) => {
+        ipfs.cat(address, (err, data) => {
+            if (err) reject(err)
+            
+            // convert Buffer back to string
+            console.log(data.toString())
+            resolve(data.toString())
+            })
+    })
 }
 
 
@@ -43,6 +47,8 @@ var readFile = function(){
 }
 
 data = "<h1>Nsdfoasdfopk</h1>"
-console.log(data)
-addr = addIPFS(data)
-console.log(getIPFS(addr))
+// console.log(data)
+// addr = addIPFS(data)
+// console.log(getIPFS(addr))
+// addIPFS("<h1>fdsaasdf</hd2>").then(console.log)
+getIPFS("QmWc2aHdkexTW2X4TeUXJVSRWmNQaVso3AY5zUc8QZ6Wut").then(console.log)
